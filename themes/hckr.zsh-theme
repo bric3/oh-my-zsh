@@ -59,7 +59,7 @@ function hg_prompt_info {
 
 
 # thx to Olivier Bazoud
-# custom git prompt info
+# enforce custom git prompt info
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(git rev-parse --short HEAD 2> /dev/null) || return
@@ -67,27 +67,7 @@ function git_prompt_info() {
 }
 
 
-# find how many commits we are ahead/behind our upstream
-git_upstream_info() {
-  count=$(git rev-list --count --left-right @{upstream}...HEAD 2> /dev/null)
-  case "$count" in
-    "") # no upstream
-      up="" ;;
-    "0	0") # equal to upstream
-      up="=" ;;
-    "0	"*) # ahead of upstream
-      up="↑${count#0	}" ;;
-    *"	0") # behind upstream
-      up="↓${count%	0}" ;;
-    *)	    # diverged from upstream
-      up="↑${count#*	} ↓${count%	*}" ;;
-  esac
-  echo "$ZSH_THEME_GIT_PROMPT_UPSTREAM$up$ZSH_THEME_GIT_PROMPT_CLEAN"
-}
-
-
-
-chars='⚙ ♨ ♋ ㍖♫𝄢♬♪𝄆𝄇𝄈𝄐〖⦖〘〙》〰︴෴⸚⌁⌀⌖𝌁⿓⎃☢☣☠☤⚕'
+various_intersting_chars='⚙ ♨ ♋ ㍖♫𝄢♬♪𝄆𝄇𝄈𝄐〖⦖〘〙》〰︴෴⸚⌁⌀⌖𝌁⿓⎃☢☣☠☤⚕'
 
 
 local ret_status="%(?::%{$fg_bold[red]%}%S↑%s%? )"

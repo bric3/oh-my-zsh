@@ -197,6 +197,26 @@ function __git_ps1 () {
 
 }
 
+
+# find how many commits we are ahead/behind upstream
+# more about parameter expansion here : http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion
+function git_upstream_info() {
+  count=$(git rev-list --count --left-right @{upstream}...HEAD 2> /dev/null)
+  case "$count" in
+    "") # no upstream
+      up="" ;;
+    "0"*[^[:alpha:]]"0") # equal to upstream
+      up="=" ;;
+    "0"*) # ahead of upstream
+      up="${ZSH_THEME_GIT_PROMPT_UPSTREAM_AHEAD_SYMBOL-↑}${count#0[^[:digit:]]##}" ;;
+    *"0") # behind upstream
+      up="${ZSH_THEME_GIT_PROMPT_UPSTREAM_BEHIND_SYMBOL-↓}${count%[^[:digit:]]##0}" ;;
+    *)      # diverged from upstream
+      up="${ZSH_THEME_GIT_PROMPT_UPSTREAM_AHEAD_SYMBOL-↑}${count#[[:digit:]][^[:digit:]]##} ${ZSH_THEME_GIT_PROMPT_UPSTREAM_BEHIND_SYMBOL-↓}${count%[^[:digit:]]##[[:digit:]]}" ;;
+  esac
+  echo "$ZSH_THEME_GIT_PROMPT_UPSTREAM$up$ZSH_THEME_GIT_PROMPT_CLEAN"
+}
+
 #this is unlikely to change so make it all statically assigned
 POST_1_7_2_GIT=$(git_compare_version "1.7.2")
 #clean up the namespace slightly by removing the checker function
