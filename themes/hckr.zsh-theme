@@ -121,8 +121,9 @@ function __git_ps1 () {
 # thx to Olivier Bazoud
 # custom git prompt info
 function git_prompt_info() {
-#  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(__git_ps1) $(git_upstream_info)$(git_prompt_status)$(git_prompt_ahead)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || \
+  ref=$(git rev-parse --short HEAD 2> /dev/null) || return
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(__git_ps1) $(git_upstream_info)$(git_prompt_status)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
 
