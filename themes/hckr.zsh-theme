@@ -57,66 +57,6 @@ function hg_prompt_info {
 %{%B%F{green}%}]%{%f%k%b%}" 2>/dev/null
 }
 
-# ported __git_ps1 to read brabch and current action
-function __git_ps1 () {
-  local g="$(git rev-parse --git-dir 2>/dev/null)"
-  if [ -n "$g" ]; then
-    local r
-    local b
-	if [ -f "$g/rebase-merge/interactive" ]
-	then
-		r="REBASE-i"
-		b="$(cat "$g/rebase-merge/head-name")"
-	elif [ -d "$g/rebase-merge" ]
-	then
-		r="REBASE-m"
-		b="$(cat "$g/rebase-merge/head-name")"
-	else
-		if [ -d "$g/rebase-apply" ]
-		then
-			if [ -f "$g/rebase-apply/rebasing" ]
-			then
-				r="REBASE"
-				b="$(cat "$g/rebase-apply/head-name")"
-			elif [ -f "$g/rebase-apply/applying" ]
-			then
-				r="|AM"
-			else
-				r="AM/REBASE"
-			fi
-		elif [ -f "$g/MERGE_HEAD" ]
-		then
-			r="MERGING"
-		elif [ -f "$g/CHERRY_PICK_HEAD" ]
-		then
-			r="CHERRY-PICKING"
-		elif [ -f "$g/BISECT_LOG" ]
-		then
-			r="BISECTING"
-		fi
-	
-		if [ -z "$b" ]
-		then
-			b="$(git symbolic-ref HEAD 2>/dev/null)" || {
-				b="$(cut -c1-7 "$g/HEAD" 2>/dev/null)..." ||
-				b="unknown"
-				b="($b)"
-			}
-		fi
-	fi
-	
-	if [ -n "$r" ]
-	then
-		r="$ZSH_THEME_GIT_PROMPT_ACTION$r"
-	fi
-
-    if [ -n "${1-}" ]; then
-      printf "$1" "$ZSH_THEME_GIT_PROMPT_BRANCH${b##refs/heads/}$r"
-    else
-      printf "%s" "$ZSH_THEME_GIT_PROMPT_BRANCH${b##refs/heads/}$r"
-    fi
-  fi
-}
 
 # thx to Olivier Bazoud
 # custom git prompt info
