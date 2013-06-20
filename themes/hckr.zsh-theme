@@ -63,11 +63,11 @@ function hg_prompt_info {
 function git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(git rev-parse --short HEAD 2> /dev/null) || return
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(__git_ps1) $(git_upstream_info)$(git_prompt_status)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(__git_ps1) $(git_upstream_changes_status)$(git_prompt_status)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
 
-various_intersting_chars='⚙ ♨ ♋ ㍖♫𝄢♬♪𝄆𝄇𝄈𝄐〖⦖〘〙》〰︴෴⸚⌁⌀⌖𝌁⿓⎃☢☣☠☤⚕'
+various_intersting_chars='⚙ ♨ ♋ ㍖♫𝄢♬♪𝄆𝄇𝄈𝄐〖⦖〘〙》〰︴෴⸚⌁⌀⌖𝌁⿓⎃☢☣☠☤⚕☸⚔☉♁☄⚚⚛  ⌘⎋⏎⌤⌥⌃⌅⇧⇪⌫⌦⇥'
 
 
 local ret_status="%(?::%{$fg_bold[red]%}%S↑%s%? )"

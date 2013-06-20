@@ -200,7 +200,7 @@ function __git_ps1 () {
 
 # find how many commits we are ahead/behind upstream
 # more about parameter expansion here : http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion
-function git_upstream_info() {
+function git_upstream_changes_status() {
   count=$(git rev-list --count --left-right @{upstream}...HEAD 2> /dev/null)
   case "$count" in
     "") # no upstream
