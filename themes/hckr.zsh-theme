@@ -70,7 +70,7 @@ function git_prompt_info() {
 various_intersting_chars='⚙ ♨ ♋ ㍖♫𝄢♬♪𝄆𝄇𝄈𝄐〖⦖〘〙》〰︴෴⸚⌁⌀⌖𝌁⿓⎃☢☣☠☤⚕☸⚔☉♁☄⚚⚛  ⌘⎋⏎⌤⌥⌃⌅⇧⇪⌫⌦⇥'
 
 
-local ret_status="%(?::%{$fg_bold[red]%}%S↑%s%? )"
+local return_status="%(?::%{$fg_bold[red]%}%S↑%s%? )"
 
 function {
     if [[ -n "$SSH_CLIENT" ]]; then
@@ -80,6 +80,6 @@ function {
     fi
 }
 
-PROMPT='${ret_status}${prompt_host}%{%b%F{yellow}%}${PWD/#$HOME/~}%E%{%f%k%b%} $(colored_prompt_char) %(!.%F{red}❯❯❯%f.❯%f) %{%f%k%b%}'
+PROMPT='${return_status}${prompt_host}%{%b%F{yellow}%}${PWD/#$HOME/~}%E%{%f%k%b%} $(colored_prompt_char) %(!.%F{red}❯❯❯%f.❯%f) %{%f%k%b%}'
 
 RPROMPT='$(git_prompt_info)$(hg_prompt_info)$(svn_prompt_info)$(bat_charge)'
