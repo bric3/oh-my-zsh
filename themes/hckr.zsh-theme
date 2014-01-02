@@ -60,7 +60,7 @@ function hg_prompt_info {
 
 # thx to Olivier Bazoud
 # enforce custom git prompt info
-function git_prompt_info() {
+function local_git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(git rev-parse --short HEAD 2> /dev/null) || return
   echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(__git_ps1) $(git_upstream_changes_status)$(git_prompt_status)$ZSH_THEME_GIT_PROMPT_SUFFIX"
@@ -82,4 +82,4 @@ function {
 
 PROMPT='${return_status}${prompt_host}%{%b%F{yellow}%}${PWD/#$HOME/~}%E%{%f%k%b%} $(colored_prompt_char) %(!.%F{red}❯❯❯%f.❯%f) %{%f%k%b%}'
 
-RPROMPT='$(git_prompt_info)$(hg_prompt_info)$(svn_prompt_info)$(bat_charge)'
+RPROMPT='$(local_git_prompt_info)$(hg_prompt_info)$(svn_prompt_info)$(bat_charge)'
