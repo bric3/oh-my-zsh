@@ -15,7 +15,7 @@ parse_git_dirty () {
     SUBMODULE_SYNTAX="--ignore-submodules=dirty"
   fi
   
-  local gitstat=$(git status $(SUBMODULE_SYNTAX) 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
+  local gitstat=$(git status ${SUBMODULE_SYNTAX} 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
 
   if [[ $(echo ${gitstat} | grep -c "^# Changes to be committed:$") > 0 ]]; then
     echo -n "$ZSH_THEME_GIT_PROMPT_DIRTY"
